@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="row">
+            <div class="col-md-12">
+                <h6 class="m-0 font-weight-bold text-primary">Edição de catequizando</h6>
+                <small>Paroquia São Gabriel Arcanjo</small>
+            </div>
+
+        </div>
+    </div>
+    <div class="card-body">
+            {{ include('catequizando/_form.html.twig', {'button_label': 'Editar'}) }}
+    </div>
+
+
+
+{% endblock %}

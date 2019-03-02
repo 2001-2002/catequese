@@ -1,0 +1,151 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="row">
+            <div class="col-md-12">
+                <h6 class="m-0 font-weight-bold text-primary">Dados do catequizando</h6>
+                <small>Paroquia São Gabriel Arcanjo</small>
+            </div>
+
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+
+            <table class="table table-hover table-striped">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ catequizando.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nome</th>
+                        <td>{{ catequizando.nome }}</td>
+                    </tr>
+                    <tr>
+                        <th>Sexo</th>
+                        <td>{{ catequizando.sexo }}</td>
+                    </tr>
+                    <tr>
+                        <th>Data de Nascimento</th>
+                        <td>{{ catequizando.dataNascimento ? catequizando.dataNascimento|date('Y-m-d') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Naturalidade</th>
+                        <td>{{ catequizando.naturalidade }}</td>
+                    </tr>
+                    <tr>
+                        <th>Endereço</th>
+                        <td>{{ catequizando.endereco }}</td>
+                    </tr>
+                    <tr>
+                        <th>Telefone</th>
+                        <td>{{ catequizando.telefone }}</td>
+                    </tr>
+                    <tr>
+                        <th>Documento </th>
+                        {% if catequizando.documento %}
+                            <td>
+                                <a href="{{ asset('/uploads/comprovantes/' ~ catequizando.documento) }}">Ver documento</a>
+                            </td>
+                        {% else %}
+                            <td>
+                                Não apresentado
+                            </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <th>Batizado? </th>
+                        <td>{{ catequizando.batizado ? 'Sim' : 'Não' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Comprovante de Batismo </th>
+                        {% if catequizando.comprovanteBatizado %}
+                            <td>
+                                <a href="{{ asset('/uploads/comprovantes/' ~ catequizando.comprovanteBatizado) }}">Ver comprovante</a>
+                            </td>
+                        {% else %}
+                            <td>
+                                Não apresentado
+                            </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <th>Eucaristia? </th>
+                        <td>{{ catequizando.eucaristia ? 'Sim' : 'Não' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Comprovante de Eucaristia </th>
+                        {% if catequizando.comprovanteEucaristia %}
+                            <td>
+                                <a href="{{ asset('/uploads/comprovantes/' ~ catequizando.comprovanteEucaristia) }}">Ver comprovante</a>
+                            </td>
+                        {% else %}
+                            <td>
+                                Não apresentado
+                            </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <th>Nome do pai</th>
+                        <td>{{ catequizando.nomePai }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nome da mae</th>
+                        <td>{{ catequizando.nomeMae }}</td>
+                    </tr>
+                    <tr>
+                        <th>Casado? </th>
+                        <td>{{ catequizando.casado ? 'Sim' : 'Não' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Comprovante de Casamento </th>
+                        {% if catequizando.comprovanteCasamento %}
+                            <td>
+                                <a href="{{ asset('/uploads/comprovantes/' ~ catequizando.comprovanteCasamento) }}">Ver comprovante</a>
+                            </td>
+                        {% else %}
+                            <td>
+                                Não apresentado
+                            </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <th>Telefone do pai</th>
+                        <td>{{ catequizando.telefonePai }}</td>
+                    </tr>
+                    <tr>
+                        <th>Telefone da mãe</th>
+                        <td>{{ catequizando.telefoneMae }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nome do padrinho de crisma</th>
+                        <td>{{ catequizando.nomePadrinhoCrisma }}</td>
+                    </tr>
+                    <tr>
+                        <th>Telefone do padrinho</th>
+                        <td>{{ catequizando.telPadrinho }}</td>
+                    </tr>
+                    <tr>
+                        <th>Endereço do padrinho</th>
+                        <td>{{ catequizando.enderecoPadrinho }}</td>
+                    </tr>
+                    <tr>
+                        <th>Cidade do catequizando</th>
+                        <td>{{ catequizando.cidadeCatequizando }}</td>
+                    </tr>
+                    <tr>
+                        <th>Cidade do padrinho</th>
+                        <td>{{ catequizando.cidadePadrinho }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    <a href="{{ path('catequizando_index') }}" class="btn btn-secondary">Voltar</a>
+
+    <a href="{{ path('catequizando_edit', {'id': catequizando.id}) }}" class="btn btn-primary">Editar</a>
+
+    </div>
+{% endblock %}

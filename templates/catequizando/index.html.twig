@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="row">
+            <div class="col-md-6">
+                <h6 class="m-0 font-weight-bold text-primary">Lista de catequizandos</h6>
+                <small>Paroquia São Gabriel Arcanjo</small>
+            </div>
+            <div class="col-md-6 text-right">
+                    <a href="{{ path('catequizando_new') }}" class="btn btn-primary">Cadastrar novo</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-bordered" id="tabela" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Sexo</th>
+                        <th>Data de Nascimento</th>
+                        <th>Turma</th>
+                        <th>Pendências</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+
+                <tfoot>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Sexo</th>
+                        <th>Data de Nascimento</th>
+                        <th>Turma</th>
+                        <th>Pendências</th>
+                        <th>Ações</th>
+                    </tr>
+                </tfoot>
+
+                <tbody>
+                {% for catequizando in catequizandos %}
+                    <tr>
+                        <td>{{ catequizando.nome }}</td>
+                        {% if catequizando.sexo == 'm' or catequizando.sexo == 'M' %}
+                            <td>Masculino</td>
+                        {% else %}
+                            <td>Feminino</td>
+                        {% endif %}
+                        <td>{{ catequizando.dataNascimento ? catequizando.dataNascimento|date('d/m/Y') : '' }}</td>
+                        <td><a href="{{ path('turma_lista', {'id': catequizando.turma.id}) }}">{{ catequizando.turma.nome }} - {{ catequizando.turma.etapa }} {{ catequizando.turma.numeroEtapa }}</a></td>
+
+                        <td>{{ catequizando.pendencias|join(', ', ' e ') }}</td>
+                        <td>
+                            <div class="dropdown mb-4">
+                                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Ações
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="{{ path('catequizando_show', {'id': catequizando.id}) }}">Mostrar</a>
+                                    <a class="dropdown-item" href="{{ path('catequizando_edit', {'id': catequizando.id}) }}">Editar</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="21" class="alert-warning">Não possui catequizandos cadastrados!</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

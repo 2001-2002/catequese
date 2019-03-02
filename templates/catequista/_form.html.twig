@@ -1,0 +1,5 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <a href="{{ path('catequista_index') }}" class="btn btn-secondary">Voltar</a>
+    <button class="btn btn-primary">{{ button_label|default('Cadastrar') }}</button>
+{{ form_end(form) }}

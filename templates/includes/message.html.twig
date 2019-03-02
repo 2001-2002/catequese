@@ -1,0 +1,19 @@
+{% for msg in app.session.flashBag.get('success') %}
+    <div class="alert alert-success">{{ msg }}</div>
+{% endfor %}
+
+{% for msg in app.session.flashBag.get('success-lista') %}
+    <div class="alert alert-success">
+    {{ msg }}
+        <br>
+    <a href="{{ path('turma_chamada', {'turma' : turma.id, 'option': 1}) }}" class="fas fa-link">Faça o download da sua lista de chamada!</a>
+    </div>
+{% endfor %}
+
+{% for msg in app.session.flashBag.get('warning') %}
+    <div class="alert alert-warning">{{ msg }}</div>
+{% endfor %}
+
+{% for msg in app.session.flashBag.get('error') %}
+    <div class="alert alert-danger">{{ msg }}</div>
+{% endfor %}

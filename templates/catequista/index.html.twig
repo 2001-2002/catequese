@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="row">
+            <div class="col-md-6">
+                <h6 class="m-0 font-weight-bold text-primary">Lista de catequistas</h6>
+                <small>Paroquia São Gabriel Arcanjo</small>
+            </div>
+            <div class="col-md-6 text-right">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('catequista_new') }}" class="btn btn-primary">Cadastrar novo</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-bordered" id="tabela" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Idade</th>
+                        <th>Sexo</th>
+                        <th>Data de nascimento</th>
+                        <th>Telefone</th>
+                        <th>E-mail</th>
+                        <th>Usuario</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Idade</th>
+                        <th>Sexo</th>
+                        <th>Data de nascimento</th>
+                        <th>Telefone</th>
+                        <th>E-mail</th>
+                        <th>Usuario</th>
+                        <th>Ações</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                {% for catequistum in catequistas %}
+                    <tr>
+                        <td>{{ catequistum.nome }}</td>
+                        <td>{{ catequistum.idade }}</td>
+                        <td>{{ catequistum.sexo }}</td>
+                        <td>{{ catequistum.dataNascimento ? catequistum.dataNascimento|date('d/m/Y') : '' }}</td>
+                        <td>{{ catequistum.telefone }}</td>
+                        <td>{{ catequistum.email }}</td>
+                        <td>{{ catequistum.usuario }}</td>
+                        <td>
+                            <div class="dropdown mb-4">
+                                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Ações
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="{{ path('catequista_show', {'id': catequistum.id}) }}">Mostrar</a>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a class="dropdown-item" href="{{ path('catequista_edit', {'id': catequistum.id}) }}">Editar</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="12" class="alert-warning">Não possui catequistas cadastrados(as)!</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+    </div>
+</div>
+
+{% endblock %}

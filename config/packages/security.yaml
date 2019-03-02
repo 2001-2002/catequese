@@ -1,0 +1,53 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        App\Entity\Catequista:
+            algorithm: bcrypt
+    providers:
+#        in_memory: { memory: ~ }
+        app_user_provider:
+            entity:
+                class: App\Entity\Catequista
+                property: usuario
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: /logout
+                target: /login
+
+            # activate different ways to authenticate
+
+            # http_basic: true
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: true
+            # https://symfony.com/doc/current/security/form_login_setup.html
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY  }
+         - { path: ^/catequista/new, roles: ROLE_ADMIN }    #pode cadastrar um catequista
+         - { path: ^/turma/new, roles: ROLE_COORDENADOR,  }  #pode cadastrar uma turma
+         - { path: ^/turma/edit, roles: ROLE_COORDENADOR,  }  #pode editar uma turma
+         - { path: ^/escola/new, roles: ROLE_COORDENADOR,  } #pode cadastrar uma escola
+         - { path: ^/escola/edit, roles: ROLE_COORDENADOR,  } #pode editar a escola
+         - { path: ^/catequista/show, roles: ROLE_CATEQUISTA,  } #pode ver seu perfil
+         - { path: ^/catequista/edit, roles: ROLE_CATEQUISTA,  } #pode editar seu perfil
+         - { path: ^/catequista, roles: ROLE_COORDENADOR,  } #pode listar o catequista
+         - { path: ^/catequizando, roles: ROLE_CATEQUISTA,  } #tem permissão total sobre o catequizando
+         - { path: ^/turma, roles: ROLE_CATEQUISTA,  } #só pode listar turmas
+         - { path: ^/escola, roles: ROLE_CATEQUISTA,  } #só pode listar escolas
+         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+    role_hierarchy:
+      ROLE_COORDENADOR: ROLE_CATEQUISTA
+      ROLE_ADMIN: ROLE_COORDENADOR
+
+

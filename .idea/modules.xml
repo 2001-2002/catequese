@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../sf4-curso/blog/.idea/blog.iml" filepath="$PROJECT_DIR$/../sf4-curso/blog/.idea/blog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/catequese.iml" filepath="$PROJECT_DIR$/.idea/catequese.iml" />
+    </modules>
+  </component>
+</project>

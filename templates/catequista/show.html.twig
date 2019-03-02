@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{% if catequistum.id == app.user.id or is_granted('ROLE_COORDENADOR')%}
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6 class="m-0 font-weight-bold text-primary">Perfil Catequista</h6>
+                        <small>Paroquia São Gabriel Arcanjo</small>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+
+                        <table class="table table-hover table-striped">
+                                <tbody>
+
+                                    <tr>
+                                        <th>Nome</th>
+                                        <td>{{ catequistum.nome }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Idade</th>
+                                        <td>{{ catequistum.idade }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Endereço</th>
+                                        <td>{{ catequistum.endereco }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Cidade</th>
+                                        <td>{{ catequistum.cidade }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Sexo</th>
+                                        <td>{{ catequistum.sexo }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Data de nascimento</th>
+                                        <td>{{ catequistum.dataNascimento ? catequistum.dataNascimento|date('Y-m-d') : '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Telefone</th>
+                                        <td>{{ catequistum.telefone }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>E-mail</th>
+                                        <td>{{ catequistum.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Usuario</th>
+                                        <td>{{ catequistum.usuario }}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                </div>
+
+            </div>
+        </div>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('catequista_index') }}" class="btn btn-secondary">Voltar</a>
+
+                <a href="{{ path('catequista_edit', {'id': catequistum.id}) }}" class="btn btn-primary">Editar</a>
+            {% else %}
+                <a href="{{ path('catequista_edit', {'id': catequistum.id}) }}" class="btn btn-primary">Editar</a>
+                <a href="{{ path('catequizando_index') }}" class="btn btn-secondary">Voltar</a>
+
+            {% endif %}
+    {% else %}
+        {% include 'includes/404.html.twig' %}
+    {% endif %}
+{% endblock %}

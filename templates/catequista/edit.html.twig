@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{% if catequistum.id == app.user.id or is_granted('ROLE_ADMIN')%}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="row">
+            <div class="col-md-12">
+                <h6 class="m-0 font-weight-bold text-primary">Editar Catequista</h6>
+                <small>Paroquia São Gabriel Arcanjo</small>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+
+            {{ include('catequista/_form.html.twig', {'button_label': 'Editar'}) }}
+
+    </div>
+
+</div>
+{% else %}
+    {% include 'includes/404.html.twig' %}
+{% endif %}
+{% endblock %}
