@@ -14,12 +14,17 @@ include_once $this->targetDirs[3].'/vendor/symfony/http-foundation/RequestMatche
 $this->privates['security.access_map'] = $instance = new \Symfony\Component\Security\Http\AccessMap();
 
 $instance->add(new \Symfony\Component\HttpFoundation\RequestMatcher('^/login'), [0 => 'IS_AUTHENTICATED_ANONYMOUSLY'], NULL);
+$instance->add(new \Symfony\Component\HttpFoundation\RequestMatcher('^/catequista/new'), [0 => 'ROLE_ADMIN'], NULL);
 $instance->add(new \Symfony\Component\HttpFoundation\RequestMatcher('^/turma/new'), [0 => 'ROLE_COORDENADOR'], NULL);
 $instance->add(new \Symfony\Component\HttpFoundation\RequestMatcher('^/turma/edit'), [0 => 'ROLE_COORDENADOR'], NULL);
 $instance->add(new \Symfony\Component\HttpFoundation\RequestMatcher('^/escola/new'), [0 => 'ROLE_COORDENADOR'], NULL);
 $instance->add(new \Symfony\Component\HttpFoundation\RequestMatcher('^/escola/edit'), [0 => 'ROLE_COORDENADOR'], NULL);
+$instance->add(new \Symfony\Component\HttpFoundation\RequestMatcher('^/catequista/show'), [0 => 'ROLE_CATEQUISTA'], NULL);
+$instance->add(new \Symfony\Component\HttpFoundation\RequestMatcher('^/catequista/edit'), [0 => 'ROLE_CATEQUISTA'], NULL);
+$instance->add(new \Symfony\Component\HttpFoundation\RequestMatcher('^/catequista'), [0 => 'ROLE_COORDENADOR'], NULL);
 $instance->add(new \Symfony\Component\HttpFoundation\RequestMatcher('^/catequizando'), [0 => 'ROLE_CATEQUISTA'], NULL);
 $instance->add(new \Symfony\Component\HttpFoundation\RequestMatcher('^/turma'), [0 => 'ROLE_CATEQUISTA'], NULL);
 $instance->add(new \Symfony\Component\HttpFoundation\RequestMatcher('^/escola'), [0 => 'ROLE_CATEQUISTA'], NULL);
+$instance->add(new \Symfony\Component\HttpFoundation\RequestMatcher('^/'), [0 => 'IS_AUTHENTICATED_FULLY'], NULL);
 
 return $instance;
