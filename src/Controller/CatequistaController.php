@@ -67,7 +67,7 @@ class CatequistaController extends AbstractController
      */
     public function edit(Request $request, Catequista $catequistum, UserPasswordEncoderInterface $encoder): Response
     {
-        $form = $this->createForm(CatequistaType::class, $catequistum);
+	$form = $this->createForm(CatequistaType::class, $catequistum, ['roles' => $catequistum->getRoles()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -75,7 +75,7 @@ class CatequistaController extends AbstractController
             $catequistum->setSenha($password);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('catequista_index', [
+            return $this->redirectToRoute('catequista_show', [
                 'id' => $catequistum->getId(),
             ]);
         }

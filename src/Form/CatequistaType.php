@@ -24,7 +24,7 @@ class CatequistaType extends AbstractType
                 'label' => 'Idade:',
             ])
             ->add('endereco', null, [
-                'label' => 'EndereÃ§o:',
+                'label' => 'Endereço:',
             ])
             ->add('cidade', null, [
                 'label' => 'Cidade:',
@@ -47,23 +47,26 @@ class CatequistaType extends AbstractType
             ])
             ->add('senha', PasswordType::class, [
                 'label' => 'Senha:',
-            ])
-            ->add('roles', ChoiceType::class,[
-                'label' => 'PermissÃµes:',
-                'multiple' => true,
-                'choices' => [
+            ]);
+            if(in_array('ROLE_ADMIN', $options['roles'])){
+                $builder->add('roles', ChoiceType::class,[
+                  'label' => 'Permissões:',
+                  'multiple' => true,
+                  'choices' => [
                     'Administrador' => 'ROLE_ADMIN',
                     'Coordenador' => 'ROLE_COORDENADOR',
                     'Catequista' => 'ROLE_CATEQUISTA',
-                ]
-            ])
-        ;
+                  ]
+                ]);
+            }
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Catequista::class,
+            'roles' => []
         ]);
     }
 }
