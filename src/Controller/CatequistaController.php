@@ -33,7 +33,13 @@ class CatequistaController extends AbstractController
     public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $catequistum = new Catequista();
-        $form = $this->createForm(CatequistaType::class, $catequistum);
+
+        $catequista = $this->getDoctrine()->getRepository(Catequista::class)
+            ->findOneBy([
+                'usuario' => $request->getSession()->get('usuario')
+            ]);
+        
+        $form = $this->createForm(CatequistaType::class, $catequistum, ['roles' => $catequista->getRoles()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
