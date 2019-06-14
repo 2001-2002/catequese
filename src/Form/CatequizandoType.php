@@ -110,6 +110,9 @@ class CatequizandoType extends AbstractType
             ->add('pendencias', ChoiceType::class,[
                 'multiple' => true,
                 'label' => 'Pendências:',
+                'attr' => [
+                    'class' => 'selectpicker'
+                ],
                 'choices' => [
                     'Comprovante de Eucaristia' => 'Comprovante de Eucaristia',
                     'Comprovante de Batismo' => 'Comprovante de Batismo',
